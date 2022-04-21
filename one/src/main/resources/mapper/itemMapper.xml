@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="portfolio.one.Item.dao.ItemMapper">
+
+    <select id="findByItemId" resultType="portfolio.one.Item.service.ItemVO" parameterType="portfolio.one.Item.service.ItemVO">
+        SELECT *
+          FROM item
+    </select>
+
+</mapper>

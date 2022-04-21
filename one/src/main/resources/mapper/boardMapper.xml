@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="portfolio.one.board.dao.BoardMapper">
+
+    <select id="selectBoardList" resultType="portfolio.one.board.service.BoardVO" parameterType="portfolio.one.board.service.BoardVO">
+        SELECT boardIdx, title, hitCnt, DATE_FORMAT(createdDatetime, '%Y.%m.%d %H:%i:%s') AS createdDatetime
+          FROM board
+         WHERE deletedYn = 'N'
+      ORDER BY boardIdx DESC
+    </select>
+
+    <select id="selectBoardDetail" resultType="portfolio.one.board.service.BoardVO" parameterType="int">
+        SELECT boardIdx, title, hitCnt, creatorId, DATE_FORMAT(createdDatetime, '%Y.%m.%d %H:%i:%s') AS createdDatetime, contents
+          FROM board
+         WHERE boardIdx = #{boardIdx}
+    </select>
+
+    <insert id="insertBoard">
+        INSERT INTO board (title, contents, creatorId, createdDatetime)
+        VALUES (#{title}, #{contents}, #{creatorId}, NOW())
+    </insert>
+
+    <update id="updateBoard">
+        UPDATE board
+        SET title = #{title},
+            contents = #{contents}
+        WHERE boardIdx = #{boardIdx}
+    </update>
+
+    <update id="updateHitCnt">
+        UPDATE board
+           SET hitCnt = hitCnt + 1
+         WHERE boardIdx = #{boardIdx}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE FROM board
+        WHERE boardIdx = #{boardIdx}
+    </delete>
+
+
+</mapper>
